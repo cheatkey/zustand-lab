@@ -1,35 +1,60 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { Tab, Tabs } from "@nextui-org/react";
+import {
+  RouteObject,
+  RouterProvider,
+  createBrowserRouter,
+  useNavigate,
+} from "react-router-dom";
+import SimpleStorePage from "./pages/simpleStore";
 
-function App() {
-  const [count, setCount] = useState(0);
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  const navigate = useNavigate();
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="w-full flex justify-center">
+        <Tabs
+          onSelectionChange={(key) => {
+            navigate(key as string);
+          }}
+        >
+          {router.map((item) => (
+            <Tab title={item.title} key={item.path}></Tab>
+          ))}
+        </Tabs>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {children}
     </>
   );
-}
+};
+
+const router: (RouteObject & { title: string })[] = [
+  {
+    title: "simple store",
+    path: "/",
+    element: (
+      <Layout>
+        <SimpleStorePage />
+      </Layout>
+    ),
+  },
+  {
+    title: "update store",
+    path: "/about",
+    element: (
+      <Layout>
+        <div>About</div>
+      </Layout>
+    ),
+  },
+];
+
+const App = () => {
+  return (
+    <main className="w-full min-h-full flex flex-col p-10">
+      <RouterProvider router={createBrowserRouter(router)} />
+    </main>
+  );
+};
 
 export default App;
