@@ -6,6 +6,7 @@ interface ISimpleStorePageProps {}
 const SimpleStorePage = ({}: ISimpleStorePageProps) => {
   const bears = useBearStore((state) => state.bears);
   const increase = useBearStore((state) => state.increase);
+  console.log("bears:", bears);
 
   return (
     <div className="flex flex-col gap-4 pt-14">
