@@ -6,11 +6,10 @@ interface ISimpleStorePageProps {}
 const SimpleStorePage = ({}: ISimpleStorePageProps) => {
   const bears = useBearStore((state) => state.bears);
   const increase = useBearStore((state) => state.increase);
-  console.log("bears:", bears);
 
   return (
     <div className="flex flex-col gap-4 pt-14">
-      <p className="text-2xl text-center">{bears}</p>
+      <p className="text-2xl text-center">count: {bears}</p>
       <Button
         color="primary"
         variant="shadow"
