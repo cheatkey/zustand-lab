@@ -6,6 +6,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import SimpleStorePage from "./pages/simpleStore";
+import UpdateStorePage from "./pages/updateStore";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const router: (RouteObject & { title: string })[] = [
     path: "/about",
     element: (
       <Layout>
-        <div>About</div>
+        <UpdateStorePage />
       </Layout>
     ),
   },
