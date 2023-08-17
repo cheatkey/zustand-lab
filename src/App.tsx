@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import SimpleStorePage from "./pages/simpleStore";
 import UpdateStorePage from "./pages/updateStore";
+import UpdateStoreImmer from "./pages/updateStoreImmer";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
@@ -41,10 +42,19 @@ const router: (RouteObject & { title: string })[] = [
   },
   {
     title: "update store",
-    path: "/about",
+    path: "/todo",
     element: (
       <Layout>
         <UpdateStorePage />
+      </Layout>
+    ),
+  },
+  {
+    title: "update store (immer)",
+    path: "/todo-immer",
+    element: (
+      <Layout>
+        <UpdateStoreImmer />
       </Layout>
     ),
   },

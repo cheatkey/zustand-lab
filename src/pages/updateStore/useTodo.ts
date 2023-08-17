@@ -2,7 +2,8 @@ import { create } from "zustand";
 import { combine } from "zustand/middleware";
 import { nanoid } from "nanoid";
 
-interface ITodoState {
+export interface ITodoState {
+  isLoading: boolean;
   todo: {
     id: string;
     value: string;
@@ -10,7 +11,9 @@ interface ITodoState {
   }[];
 }
 
-const initialTodoState: ITodoState = {
+export type UpdateItemPayload = Partial<Omit<ITodoState["todo"][number], "id">>;
+export const getInitialTodoState = (): ITodoState => ({
+  isLoading: false,
   todo: [
     {
       id: nanoid(),
@@ -18,12 +21,12 @@ const initialTodoState: ITodoState = {
       status: "inprogress",
     },
   ],
-};
+});
 
 export const useTodoStore = create(
-  combine(initialTodoState, (set, get) => ({
+  combine(getInitialTodoState(), (set, get) => ({
     reset: () => {
-      set(initialTodoState);
+      set(getInitialTodoState());
     },
     addTodoByPush: () => {
       set((state) => {
@@ -45,7 +48,7 @@ export const useTodoStore = create(
             status: "backlog",
           },
         ];
-        return { state, todo };
+        return { todo };
       });
     },
     addTodoBySpreadDirect: () => {
@@ -74,12 +77,9 @@ export const useTodoStore = create(
         ],
       });
     },
-    updateItem: (
-      id: string,
-      payload: Partial<Omit<ITodoState["todo"][number], "id">>
-    ) => {
+    updateItem: (id: string, payload: UpdateItemPayload) => {
       set((_state) => {
-        const state = JSON.parse(JSON.stringify(_state));
+        const state: ITodoState = JSON.parse(JSON.stringify(_state));
 
         const current = state.todo.findIndex((item) => item.id === id);
         if (current !== -1) {
@@ -99,5 +99,32 @@ export const useTodoStore = create(
         return { todo };
       });
     },
+    addItemFromJsonPlaceholder: async () => {
+      set({
+        isLoading: true,
+      });
+
+      const data = await (
+        await fetch(
+          `https://jsonplaceholder.typicode.com/todos/${getRandomInt()}`
+        )
+      ).json();
+
+      set((state) => {
+        const todo: ITodoState["todo"] = [
+          ...state.todo,
+          {
+            id: nanoid(),
+            value: data.title,
+            status: "backlog",
+          },
+        ];
+        return { todo, isLoading: false };
+      });
+    },
   }))
 );
+
+export const getRandomInt = () => {
+  return Math.floor(Math.random() * 200) + 1;
+};
