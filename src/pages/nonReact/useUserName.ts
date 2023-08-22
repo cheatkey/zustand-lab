@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { create } from "zustand";
 
 interface IUserNameStore {
@@ -13,3 +14,10 @@ const useUserName = create<IUserNameStore>()((set) => ({
 }));
 
 export default useUserName;
+
+useUserName.subscribe((state) => {
+  const userNameLength = state.username.length;
+  if (userNameLength >= 3) {
+    toast(`(예시) api 호출 ${userNameLength}`);
+  }
+});
