@@ -24,7 +24,7 @@ const CombineGetPage = () => {
         <CardBody className="bg-zinc-200">
           검색 로그
           {log.map((item) => (
-            <p>{item}</p>
+            <p key={item.id}>{item.value}</p>
           ))}
         </CardBody>
       </Card>

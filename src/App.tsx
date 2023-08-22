@@ -30,6 +30,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { GitHub, Post } from "iconoir-react";
 import CombineGetPage from "./pages/combineGetStore";
+import RenderingOptimizationPage from "./pages/renderingOptimization";
 
 const router: (RouteObject & {
   title: string;
@@ -70,6 +71,13 @@ const router: (RouteObject & {
     postURL: "",
     path: "/combine-get",
     element: <CombineGetPage />,
+  },
+  {
+    title: "리렌더링 최적화",
+    exampleTitle: "todo list",
+    postURL: "",
+    path: "/rerendering",
+    element: <RenderingOptimizationPage />,
   },
 ];
 

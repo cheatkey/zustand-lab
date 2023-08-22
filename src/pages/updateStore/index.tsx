@@ -64,6 +64,7 @@ const UpdateStorePage = ({}: IUpdateStorePageProps) => {
       <div className="flex flex-col gap-3">
         {todo.map((item) => (
           <TodoItem
+            key={item.id}
             item={item}
             updateItem={updateItem}
             deleteItem={deleteItem}

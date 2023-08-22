@@ -1,10 +1,11 @@
 import axios from "axios";
 import { UseBoundStore, create } from "zustand";
 import { combine } from "zustand/middleware";
+import { nanoid } from "nanoid";
 
 interface ILoggerStore {
   isLoading: boolean;
-  log: string[];
+  log: { id: string; value: string }[];
   searchInput: string;
   searchedProduct: { thumbnail: string; title: string }[];
 }
@@ -23,7 +24,7 @@ const useLogger = create(
     return {
       addLog: (value: string) => {
         set((state) => ({
-          log: [...state.log, value],
+          log: [...state.log, { value, id: nanoid() }],
         }));
       },
       loadingWrapper: (value: boolean) => {

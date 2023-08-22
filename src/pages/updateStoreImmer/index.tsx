@@ -4,9 +4,7 @@ import Reset from "../updateStore/components/Reset";
 import TodoItem from "../updateStore/components/TodoItem";
 import { useTodoImmer } from "./useTodoImmer";
 
-interface IUpdateStoreImmerProps {}
-
-const UpdateStoreImmer = ({}: IUpdateStoreImmerProps) => {
+const UpdateStoreImmer = () => {
   const {
     todo,
     addItemFromJsonPlaceholder,
@@ -49,6 +47,7 @@ const UpdateStoreImmer = ({}: IUpdateStoreImmerProps) => {
       <div className="flex flex-col gap-3">
         {todo.map((item) => (
           <TodoItem
+            key={item.id}
             item={item}
             updateItem={updateItem}
             deleteItem={deleteItem}
