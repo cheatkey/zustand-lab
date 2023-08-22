@@ -1,9 +1,7 @@
 import { Button } from "@nextui-org/react";
 import { useBearStore } from "./useBearStore";
 
-interface ISimpleStorePageProps { }
-
-const SimpleStorePage = ({ }: ISimpleStorePageProps) => {
+const SimpleStorePage = () => {
   const bears = useBearStore((state) => state.bears);
   const increase = useBearStore((state) => state.increase);
 

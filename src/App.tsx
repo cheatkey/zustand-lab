@@ -31,33 +31,42 @@ import "react-toastify/dist/ReactToastify.css";
 import { GitHub, Post } from "iconoir-react";
 import CombineGetPage from "./pages/combineGetStore";
 
-const router: (RouteObject & { title: string; postURL: string })[] = [
+const router: (RouteObject & {
+  title: string;
+  exampleTitle: string;
+  postURL: string;
+})[] = [
   {
-    title: "simple store",
+    title: "zustand store 선언 방법 소개",
+    exampleTitle: "카운터",
     postURL: "http://localhost:5173/todo-immer",
     path: "/simple-store",
     element: <SimpleStorePage />,
   },
   {
-    title: "update store",
+    title: "update 상태 업데이트 하는 방법 예제",
+    exampleTitle: "todo list",
     postURL: "",
     path: "/todo",
     element: <UpdateStorePage />,
   },
   {
-    title: "update store (immer)",
+    title: "immer를 사용하여 상태를 업데이트 하는 예제",
+    exampleTitle: "todo list",
     postURL: "",
     path: "/todo-immer",
     element: <UpdateStoreImmer />,
   },
   {
-    title: "persist login",
+    title: "persist를 사용하여 새로고침을 해도 데이터가 날라가지 않는 예제",
+    exampleTitle: "로그인 & 유저 정보 업데이트",
     postURL: "",
     path: "/persist-store",
     element: <PersistStorePage />,
   },
   {
-    title: "recipe combine method get",
+    title: "[레시피] combine의 get 함수에서 method를 타입 추론하는 예제",
+    exampleTitle: "제품 검색",
     postURL: "",
     path: "/combine-get",
     element: <CombineGetPage />,
@@ -68,14 +77,18 @@ const NavigatePage = () => {
   return (
     <Table aria-label="example navigator">
       <TableHeader>
-        <TableColumn>example</TableColumn>
-        <TableColumn>post url</TableColumn>
+        <TableColumn>예제</TableColumn>
+        <TableColumn>제목</TableColumn>
+        <TableColumn>url</TableColumn>
       </TableHeader>
       <TableBody>
         {router.map((item) => (
           <TableRow key={item.path}>
             <TableCell>
               <Link href={item.path}>{item.title}</Link>
+            </TableCell>
+            <TableCell>
+              <Link href={item.path}>{item.exampleTitle}</Link>
             </TableCell>
             <TableCell>
               <Link href={item.postURL}>{item.postURL}</Link>
