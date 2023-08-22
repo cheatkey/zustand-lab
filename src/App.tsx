@@ -32,6 +32,7 @@ import { GitHub, Post } from "iconoir-react";
 import CombineGetPage from "./pages/combineGetStore";
 import RenderingOptimizationPage from "./pages/renderingOptimization";
 import NonReactPage from "./pages/nonReact";
+import DebugStorePage from "./pages/debugStore";
 
 const router: (RouteObject & {
   title: string;
@@ -82,10 +83,17 @@ const router: (RouteObject & {
   },
   {
     title: "non-react 예제",
-    exampleTitle: "name",
+    exampleTitle: "유저 정보 유효성 검사",
     postURL: "",
     path: "/non-react",
     element: <NonReactPage />,
+  },
+  {
+    title: "디버깅 예제",
+    exampleTitle: "counter",
+    postURL: "",
+    path: "/debug-todo",
+    element: <DebugStorePage />,
   },
 ];
 
