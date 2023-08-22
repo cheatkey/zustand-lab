@@ -29,6 +29,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { GitHub, Post } from "iconoir-react";
+import CombineGetPage from "./pages/combineGetStore";
 
 const router: (RouteObject & { title: string; postURL: string })[] = [
   {
@@ -54,6 +55,12 @@ const router: (RouteObject & { title: string; postURL: string })[] = [
     postURL: "",
     path: "/persist-store",
     element: <PersistStorePage />,
+  },
+  {
+    title: "recipe combine method get",
+    postURL: "",
+    path: "/combine-get",
+    element: <CombineGetPage />,
   },
 ];
 
