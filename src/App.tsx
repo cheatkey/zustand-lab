@@ -31,6 +31,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { GitHub, Post } from "iconoir-react";
 import CombineGetPage from "./pages/combineGetStore";
 import RenderingOptimizationPage from "./pages/renderingOptimization";
+import NonReactPage from "./pages/nonReact";
 
 const router: (RouteObject & {
   title: string;
@@ -78,6 +79,13 @@ const router: (RouteObject & {
     postURL: "",
     path: "/rerendering",
     element: <RenderingOptimizationPage />,
+  },
+  {
+    title: "non-react 예제",
+    exampleTitle: "name",
+    postURL: "",
+    path: "/non-react",
+    element: <NonReactPage />,
   },
 ];
 
