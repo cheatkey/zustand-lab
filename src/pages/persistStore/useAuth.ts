@@ -8,7 +8,10 @@ interface IAuthStore {
   token: string | undefined;
 }
 
-const initialAuthState: IAuthStore = { email: undefined, token: undefined };
+const initialAuthState: IAuthStore = {
+  email: undefined,
+  token: undefined,
+};
 
 const useAuth = create(
   persist(
