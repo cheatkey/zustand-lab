@@ -79,7 +79,8 @@ export const useTodoStore = create(
     },
     updateItem: (id: string, payload: UpdateItemPayload) => {
       set((_state) => {
-        const state: ITodoState = JSON.parse(JSON.stringify(_state));
+        const state: ITodoState = { ..._state };
+        // JSON.parse(JSON.stringify(_state));
 
         const current = state.todo.findIndex((item) => item.id === id);
         if (current !== -1) {

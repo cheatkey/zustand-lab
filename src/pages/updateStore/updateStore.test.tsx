@@ -7,25 +7,20 @@ import { useTodoStore } from "./useTodo";
 describe("Todo", () => {
   test("새로운 todo 아이템 추가 및 변경 시 지정한 값으로 내용이 변경되어야 한다.", async () => {
     const { result } = renderHook(() => useTodoStore());
-
-    expect(result.current.todo).toStrictEqual([]);
-
+    expect(result.current.todo.length).toEqual(1);
     act(() => {
-      result.current.addTodo("안녕하세요.");
+      result.current.addTodoBySpread();
     });
-    const firstItem = result.current.todo[0];
-    console.log("firstItem:", firstItem);
-    expect(firstItem.value).toBe("안녕하세요.");
-    expect(firstItem.status).toBe("backlog");
-
+    const createdItem = result.current.todo[1];
+    expect(createdItem.value).toBe("새로운 action item");
+    expect(createdItem.status).toBe("backlog");
     act(() => {
-      result.current.updateItem(firstItem.id, {
+      result.current.updateItem(createdItem.id, {
         status: "done",
         value: "Hello, World",
       });
     });
-
-    expect(result.current.todo[0].status).toBe("done");
-    expect(result.current.todo[0].value).toBe("Hello, World");
+    expect(result.current.todo[1].status).toBe("done");
+    expect(result.current.todo[1].value).toBe("Hello, World");
   });
 });
