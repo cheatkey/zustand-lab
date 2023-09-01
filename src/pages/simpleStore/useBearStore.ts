@@ -8,8 +8,18 @@ interface IBearState {
 const initialBearState: IBearState = { bears: 0 };
 
 export const useBearStore = create(
-  combine(initialBearState, (set) => ({
-    increase: (by: number) => set((state) => ({ bears: state.bears + by })),
+  combine(initialBearState, (set, get) => ({
+    increase: (by: number) => {
+      const nextBears = get().bears + by;
+      if (nextBears >= 10) {
+        alert("카운터는 10을 넘을 수 없습니다.");
+        return;
+      }
+
+      set({
+        bears: nextBears,
+      });
+    },
   }))
 );
 
