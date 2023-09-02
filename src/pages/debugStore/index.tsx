@@ -1,8 +1,9 @@
 import { Button } from "@nextui-org/react";
 import { useDebugStore } from "./useDebugStore";
+import { useDebugStoreActionName } from "./useDebugStoreActionName";
 
 const DebugStorePage = () => {
-  const { increase, decrease, count } = useDebugStore();
+  const { increase, decrease, count } = useDebugStoreActionName();
 
   return (
     <div className="flex flex-col gap-4 pt-14">
@@ -13,7 +14,7 @@ const DebugStorePage = () => {
           color="primary"
           variant="shadow"
           onClick={() => {
-            increase();
+            increase("dd", 3);
           }}
         >
           increase
