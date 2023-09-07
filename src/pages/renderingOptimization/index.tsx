@@ -2,6 +2,10 @@ import { Button } from "@nextui-org/react";
 import Reset from "../updateStore/components/Reset";
 import TodoItem from "../updateStore/components/TodoItem";
 import { useTodoBase, useTodoIDList, useTodoItem } from "./useOptimizationTodo";
+import { useUserInfo } from "./useUserInfo";
+import NameCard from "./components/nameCard";
+import AgeCard from "./components/ageCard";
+import Summary from "./summary";
 
 const RenderingOptimizationPage = () => {
   const idList = useTodoIDList();
@@ -15,6 +19,12 @@ const RenderingOptimizationPage = () => {
 
   return (
     <main className="flex flex-col gap-8 mt-8">
+      <div className="flex flex-row gap-2">
+        <NameCard />
+        <AgeCard />
+      </div>
+
+      <Summary />
       <div className="flex flex-row gap-2 items-center">
         <Button
           color="primary"

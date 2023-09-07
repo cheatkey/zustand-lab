@@ -15,6 +15,17 @@ export const useTodoBase = create(
       reset: () => {
         set(getInitialTodoState());
       },
+      computedValue: () => {
+        const backlogTasks = get().todo.filter(
+          (item) => item.status === "backlog"
+        );
+        const doneTasks = get().todo.filter((item) => item.status === "done");
+        const inprogressTasks = get().todo.filter(
+          (item) => item.status === "inprogress"
+        );
+
+        return `백로그 ${backlogTasks.length}건, 진행중 ${inprogressTasks.length}, 완료 ${doneTasks.length}건`;
+      },
       addTodo: () => {
         set((state) => {
           state.todo.push({
