@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAuth from "./useAuth";
 import { Button, Input, Divider } from "@nextui-org/react";
 import UserInfo from "./components/UserInfo";
+import { toast } from "react-toastify";
 
 const PersistStorePage = () => {
   const login = useAuth((state) => state.login);
@@ -18,6 +19,10 @@ const PersistStorePage = () => {
     id: "kminchelle",
     pw: "0lelplR",
   });
+
+  useEffect(() => {
+    toast.info("페이지를 새로고침 했습니다");
+  }, []);
 
   return (
     <>
