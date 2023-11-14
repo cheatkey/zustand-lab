@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import {
+  PersistStorage,
+  StateStorage,
   StorageValue,
   combine,
   createJSONStorage,
@@ -13,6 +15,8 @@ export type UserInfoKey = "email" | "username";
 interface IMapSetStore {
   favoriteLanguages: Set<string>;
   userInfo: Map<UserInfoKey, string>;
+  myReg: RegExp;
+  now: Date;
 }
 
 const initialMapSetState: IMapSetStore = {
@@ -21,6 +25,20 @@ const initialMapSetState: IMapSetStore = {
     ["email", ""],
     ["username", ""],
   ]),
+  myReg: RegExp("\\d"),
+  now: new Date(),
+};
+
+const storage: PersistStorage<IMapSetStore> = {
+  getItem: (name) => {
+    const str = localStorage.getItem(name);
+    if (!str) return null;
+    return superjson.parse(str);
+  },
+  setItem: (name, value) => {
+    localStorage.setItem(name, superjson.stringify(value));
+  },
+  removeItem: (name) => localStorage.removeItem(name),
 };
 
 const useMapSet = create(
@@ -44,19 +62,7 @@ const useMapSet = create(
     })),
     {
       name: "mapset-storage",
-      storage: {
-        getItem: (name) => {
-          return {
-            state: superjson.parse<StorageValue<IMapSetStore>>(
-              localStorage.getItem(name) as string
-            ).state,
-          };
-        },
-        setItem: (name, value) => {
-          localStorage.setItem(name, superjson.stringify(value));
-        },
-        removeItem: (name) => localStorage.removeItem(name),
-      },
+      storage,
     }
   )
 );
