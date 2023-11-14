@@ -2,6 +2,7 @@ import axios from "axios";
 import { UseBoundStore, create } from "zustand";
 import { combine } from "zustand/middleware";
 import { nanoid } from "nanoid";
+import { getProductSearchResults } from "./repository";
 
 interface ILoggerStore {
   isLoading: boolean;
@@ -27,7 +28,7 @@ const useLogger = create(
           log: [...state.log, { value, id: nanoid() }],
         }));
       },
-      loadingWrapper: (value: boolean) => {
+      setLoading: (value: boolean) => {
         set({
           isLoading: value,
         });
@@ -38,25 +39,20 @@ const useLogger = create(
         });
       },
       searchProduct: async () => {
-        const { searchInput, loadingWrapper } = get();
+        const { searchInput, setLoading } = get();
         get().addLog(searchInput);
 
-        loadingWrapper(true);
-        const { data: result } = await axios<{
-          products: {
-            title: string;
-            thumbnail: string;
-          }[];
-        }>(`https://dummyjson.com/products/search?q=${searchInput}`);
+        setLoading(true);
+        const products = await getProductSearchResults(searchInput);
 
         set({
-          searchedProduct: result.products.map((item) => ({
+          searchedProduct: products.products.map((item) => ({
             title: item.title,
             thumbnail: item.thumbnail,
           })),
         });
 
-        loadingWrapper(false);
+        setLoading(false);
       },
     };
   })
