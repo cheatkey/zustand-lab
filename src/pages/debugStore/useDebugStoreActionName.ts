@@ -9,6 +9,7 @@ import {
   create,
 } from "zustand";
 import { devtools, persist, combine, NamedSet } from "zustand/middleware";
+import { diff } from "deep-object-diff";
 
 type Entries<T> = {
   [K in keyof T]: [K, T[K]];
@@ -47,10 +48,12 @@ const actionAutoMatcher =
 
 interface IDebugStoreState {
   count: number;
+  name: string;
 }
 
 const initialState: IDebugStoreState = {
   count: 0,
+  name: "",
 };
 
 export const useDebugStoreActionName = create(
@@ -68,7 +71,21 @@ export const useDebugStoreActionName = create(
           }));
           return true;
         },
+        setName: (set) => (payload: string) => {
+          set((state) => ({
+            name: payload,
+          }));
+        },
       })
     )
   )
 );
+
+useDebugStoreActionName.subscribe((state, prevState) => {
+  const getState = (obj: object) =>
+    Object.fromEntries(
+      Object.entries(obj).filter((item) => typeof item[1] !== "function")
+    );
+  if (!!state && !!prevState)
+    console.log(diff(getState(prevState), getState(state)));
+});

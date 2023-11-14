@@ -1,9 +1,10 @@
-import { Button } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { useDebugStore } from "./useDebugStore";
 import { useDebugStoreActionName } from "./useDebugStoreActionName";
 
 const DebugStorePage = () => {
-  const { increase, decrease, count } = useDebugStoreActionName();
+  const { increase, decrease, count, name, setName } =
+    useDebugStoreActionName();
 
   return (
     <div className="flex flex-col gap-4 pt-14">
@@ -30,6 +31,13 @@ const DebugStorePage = () => {
           decrease
         </Button>
       </div>
+
+      <Input
+        value={name}
+        onChange={(event) => {
+          setName(event.target.value);
+        }}
+      />
     </div>
   );
 };
